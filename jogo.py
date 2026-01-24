@@ -1,23 +1,24 @@
 import pygame
 
 pygame.init()
-screen = pygame.display.set_mode((800, 500)) # configura janela do jogo
+x, y = 800, 500
+screen = pygame.display.set_mode((x, y)) # configura janela do jogo
 clock = pygame.time.Clock()
 running = True
 tela='tela_menu'
 
 fonte=pygame.font.Font(None, 80)
 fonte_bemvindo = pygame.font.Font(None, 50)
-fonte_txt=pygame.font.Font(None, 28)
+fonte_txt=pygame.font.Font(None, 40)
 subtitulo_fonte = pygame.font.Font(None, 23)
 
 subtitulo = subtitulo_fonte.render(f'As escolham importam', True, 'White')
 
 surface_texto = fonte_bemvindo.render(f"Entre Portas", True, 'White')
 
-voltar = fonte.render(f'Voltar', True, "Purple")
+voltar = fonte_txt.render(f'<-', True, (192, 79, 21))
 voltar_rect = voltar.get_rect()
-voltar_rect.topleft = (10, 50)
+voltar_rect.topleft = (10, 55)
 
 #instrucao = fonte.render(f'Instrução', True, (192, 79, 21))
 #instrucao_rect = instrucao.get_rect()
@@ -25,16 +26,16 @@ voltar_rect.topleft = (10, 50)
 
 texto2 = fonte_txt.render(f'Jogar <-', True, 'White')
 texto2_rect = texto2.get_rect()
-texto2_rect.topleft = (20, 150)
+texto2_rect.topleft = (200, 435)
 
 texto3 = fonte_txt.render(f'Instruções <-', True, 'White')
 texto3_rect = texto3.get_rect()
-texto3_rect.topleft = (20, 200)
+texto3_rect.topleft = (450, 435)
 
 fundo = pygame.image.load("fundo_por do sol.jpg")
-fundo = pygame.transform.scale(fundo, (800, 500)) 
+fundo = pygame.transform.scale(fundo, (x, y)) 
 
-fundo_instrucao = pygame.image.load("Design sem nome.png")
+fundo_instrucao = pygame.image.load("fundo_instrucao2.png")
 
 while running:
   
@@ -76,9 +77,11 @@ while running:
       screen.blit(texto3, texto3_rect.topleft) 
 
     if tela == "click_jogar":
-        screen.fill((0, 0, 153))
-        #screen.blit(fase1, fase1_rect.center)
-        print('nada ainda')
+        tela = 'fase1'
+        if tela == 'fase1':
+           screen.fill((0, 0, 0))
+           screen.blit(voltar, voltar_rect.topleft)
+        
     elif tela == "click_instrucoes":
         
         screen.blit(fundo_instrucao, (0,0))
