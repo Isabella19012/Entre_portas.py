@@ -1,4 +1,8 @@
 import pygame
+def errada():
+   if tela == perdeu:
+    load = "porta_da_primeira_fase.jpg"
+    return load
 
 pygame.init()
 x, y = 800, 500
@@ -31,11 +35,30 @@ texto2_rect.topleft = (200, 435)
 texto3 = fonte_txt.render(f'Instruções <-', True, 'White')
 texto3_rect = texto3.get_rect()
 texto3_rect.topleft = (450, 435)
-
+#fundo do inicio
 fundo = pygame.image.load("fundo_por do sol.jpg")
 fundo = pygame.transform.scale(fundo, (x, y)) 
-
+#fundo do perdeu
+perdeu = pygame.image.load('voceperdeu.png')
+perdeu = pygame.transform.scale(perdeu, (x, y)) 
+#fundo instrução
 fundo_instrucao = pygame.image.load("fundo_instrucao2.png")
+#porta errada
+load = errada
+porta_errada = pygame.image.load('porta_da_primeira_fase.jpg')
+porta_errada = pygame.transform.scale(porta_errada, (60, 100))
+porta_errada_rect = porta_errada.get_rect()
+porta_errada_rect.topleft = (400, 250)
+
+botao_fase1 = pygame.image.load('voltar_fase1.png')
+botao_fase1_rect = pygame.transform.scale(botao_fase1, (500, 100))
+botao_fase1_rect = botao_fase1.get_rect()
+botao_fase1_rect.topleft = (100, 400)
+
+botao_voltar = pygame.image.load('voltar_menu.png')
+botao_voltar_rect = pygame.transform.scale(botao_fase1, (10, 5))
+botao_voltar_rect = botao_voltar.get_rect()
+botao_voltar_rect.topleft = (400, 400)
 
 while running:
   
@@ -51,7 +74,13 @@ while running:
         elif texto3_rect.collidepoint(event.pos):
           tela =  'click_instrucoes'
         elif voltar_rect.collidepoint(event.pos):
-           tela = "tela_menu"
+          tela = "tela_menu"
+        elif porta_errada_rect.collidepoint(event.pos):
+          tela = 'perdeu'
+        elif botao_fase1_rect.collidepoint(event.pos):
+           tela = 'fase1'
+        elif botao_voltar_rect.collidepoint(event.pos):
+           tela = 'tela_menu'
 
         #elif fase1_rect.collidepoint(event.pos):
          #  tela ='fase1'
@@ -78,10 +107,16 @@ while running:
 
     if tela == "click_jogar":
         tela = 'fase1'
-        if tela == 'fase1':
-           screen.fill((0, 0, 0))
-           screen.blit(voltar, voltar_rect.topleft)
-        
+    if tela == 'fase1':
+          screen.fill((0, 0, 0))
+          screen.blit(voltar, voltar_rect.topleft)
+          screen.blit(porta_errada, porta_errada_rect.topleft)
+
+    if tela == 'perdeu':
+      screen.blit(perdeu, (0, 0))
+      screen.blit(botao_voltar, botao_voltar_rect.topleft)
+      screen.blit(botao_fase1, botao_fase1_rect.topleft)
+
     elif tela == "click_instrucoes":
         
         screen.blit(fundo_instrucao, (0,0))
