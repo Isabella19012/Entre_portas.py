@@ -51,14 +51,14 @@ porta_errada_rect = porta_errada.get_rect()
 porta_errada_rect.topleft = (400, 250)
 
 botao_fase1 = pygame.image.load('voltar_fase1.png')
-botao_fase1_rect = pygame.transform.scale(botao_fase1, (500, 100))
+botao_fase1= pygame.transform.scale(botao_fase1, (250, 100))
 botao_fase1_rect = botao_fase1.get_rect()
-botao_fase1_rect.topleft = (100, 400)
+botao_fase1_rect.topleft = (100, 300)
 
 botao_voltar = pygame.image.load('voltar_menu.png')
-botao_voltar_rect = pygame.transform.scale(botao_fase1, (10, 5))
+botao_voltar= pygame.transform.scale(botao_voltar, (250, 100))
 botao_voltar_rect = botao_voltar.get_rect()
-botao_voltar_rect.topleft = (400, 400)
+botao_voltar_rect.topleft = (450, 300)
 
 while running:
   
