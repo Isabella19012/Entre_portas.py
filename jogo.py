@@ -1,4 +1,20 @@
 import pygame
+def transicao(screen, clock):
+    fade = pygame.Surface((1000, 500))
+    fade.fill((255, 255, 255))
+
+    for alpha in range(0, 255, 15):
+        fade.set_alpha(alpha)
+        screen.blit(fade, (0, 0))
+        pygame.display.flip()
+        clock.tick(60)
+
+    for alpha in range(255, 0, -15):
+        fade.set_alpha(alpha)
+        screen.blit(fade, (0, 0))
+        pygame.display.flip()
+        clock.tick(60)
+
 
 pygame.init()
 x, y = 1000, 500
@@ -66,12 +82,18 @@ fundo_fase2 = pygame.image.load('png/cenario_fase2.png')
 fundo_fase2 = pygame.transform.scale(fundo_fase2, (x, y))
 fundo_fase2 = fundo_fase2.convert_alpha()
 #desistir
-desistir = fonte_txt.render(f'Menu <-', True, 'White')
+desistir = subtitulo_fonte.render(f'Menu <-', True, 'White')
 desistir_rect = desistir.get_rect()
 desistir_rect.topleft = (850,30)
 #dicas:
 dica_gato = pygame.image.load('png/gatinha.png')
-dicag_rect = dica_gato.get_rect
+dica_gato = pygame.transform.scale(dica_gato, (150,110))
+dicag_rect = dica_gato.get_rect()
+dicag_rect.topleft = (557, 110)
+
+mostrar_dica = False
+dicatxt = subtitulo_fonte.render("O que mais tem no céu?", True, (11, 118, 160))
+dicatxt_rect = dicatxt.get_rect(center=(220, 100))
 
 while running:
 
@@ -80,35 +102,51 @@ while running:
             running = False
 
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-
             if tela == 'tela_menu':
                 if texto2_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
                     tela = 'fase1'
                 elif texto3_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
                     tela = 'click_instrucoes'
 
             elif tela == 'click_instrucoes':
                 if voltar_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
                     tela = 'tela_menu'
 
             elif tela == 'fase1':
-                if porta_errada_rect.collidepoint(event.pos):
+                if dicag_rect.collidepoint(event.pos):
+                    mostrar_dica = not mostrar_dica 
+
+                elif porta_errada_rect.collidepoint(event.pos):
+                    mostrar_dica = False 
+                    transicao(screen, clock)
                     tela = 'perdeu'
+
                 elif porta_certa1_rect.collidepoint(event.pos):
+                    mostrar_dica = False
+                    transicao(screen, clock)
                     tela = 'fase2'
+
                 elif desistir_rect.collidepoint(event.pos):
+                    mostrar_dica = False 
+                    transicao(screen, clock)
                     tela = 'tela_menu'
 
             elif tela == 'perdeu':
                 if botao_voltar_rect.collidepoint(event.pos):
+                    mostrar_dica = False 
+                    transicao(screen, clock)
                     tela = 'tela_menu'
                 elif botao_fase1_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
                     tela = 'fase1'
 
             elif tela == 'fase2':
                 if voltar_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
                     tela = 'tela_menu'
-
     mouse_pos = pygame.mouse.get_pos()
 
 #TELAS
@@ -118,8 +156,8 @@ while running:
         pygame.draw.rect(screen, (226, 81, 0), (0, 400, x, 120))
         screen.blit(subtitulo, (405, 70))
         screen.blit(surface_texto, (380, 30))
-        pygame.draw.rect(screen, (255, 255, 255), (230, 410, 230, 70), 2, 5)
-        pygame.draw.rect(screen, (255, 255, 255), (510, 410, 230, 70), 2, 5)
+        pygame.draw.rect(screen, (255, 255, 255), (230, 410, 230, 70), 3, 12)
+        pygame.draw.rect(screen, (255, 255, 255), (510, 410, 230, 70), 3, 12)
         screen.blit(texto2, texto2_rect)
         screen.blit(texto3, texto3_rect)
 
@@ -127,7 +165,6 @@ while running:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
-
 
     elif tela == 'click_instrucoes':
         screen.blit(fundo_instrucao, (0, 0))
@@ -138,19 +175,20 @@ while running:
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
-    
-
     elif tela == 'fase1':
         screen.blit(fundo_fase1, (0, 0))
+        screen.blit(dica_gato, dicag_rect.topleft)
         screen.blit(porta_errada1, porta_errada_rect)
         screen.blit(porta_certa1, porta_certa1_rect)
         screen.blit(desistir, desistir_rect)
+        if mostrar_dica:
+            pygame.draw.rect(screen, (10, 103, 140), (110, 90, 220, 20), border_radius=12)
+            screen.blit(dicatxt, dicatxt_rect)
 
-        if porta_certa1_rect.collidepoint(mouse_pos) or porta_errada_rect.collidepoint(mouse_pos) or desistir_rect.collidepoint(mouse_pos):
+        if porta_certa1_rect.collidepoint(mouse_pos) or porta_errada_rect.collidepoint(mouse_pos) or desistir_rect.collidepoint(mouse_pos) or dicag_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
-
 
     elif tela == 'perdeu':
         screen.blit(perdeu, (0, 0))
