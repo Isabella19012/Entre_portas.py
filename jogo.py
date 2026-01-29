@@ -33,7 +33,7 @@ surface_texto = fonte_bemvindo.render(f"Entre Portas", True, 'White')
 
 voltar = fonte_txt.render(f'<-', True, (192, 79, 21))
 voltar_rect = voltar.get_rect()
-voltar_rect.topleft = (10, 55)
+voltar_rect.topleft = (30, 55)
 
 #jogar e instruções
 texto2 = fonte_txt.render(f'Jogar <-', True, 'White')
@@ -51,7 +51,7 @@ fundo = pygame.transform.scale(fundo, (x, y))
 perdeu = pygame.image.load('png/voceperdeu.png')
 perdeu = pygame.transform.scale(perdeu, (x, y)) 
 #fundo instrução
-fundo_instrucao = pygame.image.load("png/fundo instrução2.png")
+fundo_instrucao = pygame.image.load("png/ins.png")
 fundo_instrucao = pygame.transform.scale(fundo_instrucao, (x, y))
 fundo_instrucao = fundo_instrucao.convert_alpha()
 #porta errada e certa
