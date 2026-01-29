@@ -202,7 +202,7 @@ while running:
     elif tela == 'fase2':
         screen.blit(fundo_fase2, (0, 0))
         screen.blit(voltar, voltar_rect)
-
+        print('Fase imcompleta')
         if voltar_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
