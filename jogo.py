@@ -1,4 +1,6 @@
+
 import pygame
+
 def transicao(screen, clock):
     fade = pygame.Surface((1000, 500))
     fade.fill((255, 255, 255))
@@ -15,14 +17,18 @@ def transicao(screen, clock):
         pygame.display.flip()
         clock.tick(60)
 
-
+def perdeud():
+    global perdeux, tela
+    perdeux = perdeux+1
+    tela='perdeu'
 pygame.init()
+
 x, y = 1000, 500
 screen = pygame.display.set_mode((x, y)) # configura janela do jogo
 clock = pygame.time.Clock()
 running = True
 tela='tela_menu'
-
+perdeux = 0
 fonte=pygame.font.Font(None, 80)
 fonte_bemvindo = pygame.font.Font(None, 50)
 fonte_txt=pygame.font.Font(None, 40)
@@ -30,6 +36,7 @@ subtitulo_fonte = pygame.font.Font(None, 23)
 
 subtitulo = subtitulo_fonte.render(f'As escolham importam', True, 'White')
 surface_texto = fonte_bemvindo.render(f"Entre Portas", True, 'White')
+
 
 voltar = fonte_txt.render(f'<-', True, (192, 79, 21))
 voltar_rect = voltar.get_rect()
@@ -94,6 +101,19 @@ dicag_rect.topleft = (557, 110)
 mostrar_dica = False
 dicatxt = subtitulo_fonte.render("O que mais tem no céu?", True, (11, 118, 160))
 dicatxt_rect = dicatxt.get_rect(center=(220, 100))
+#fase 2
+#colisão/dica
+
+portaceleiro = pygame.image.load("png/portadoceleiro.png")
+portaceleiro = pygame.transform.scale(portaceleiro, (85, 90))
+portac_rect = portaceleiro.get_rect()
+portac_rect.topleft = (330, 295)
+
+portacasa = pygame.image.load("png/porta_casa.png")
+portacasa = pygame.transform.scale(portacasa, (65, 115))
+portacasa_rect = portacasa.get_rect()
+portacasa_rect.topleft = (830, 320)
+
 
 while running:
 
@@ -122,7 +142,7 @@ while running:
                 elif porta_errada_rect.collidepoint(event.pos):
                     mostrar_dica = False 
                     transicao(screen, clock)
-                    tela = 'perdeu'
+                    perdeud()
 
                 elif porta_certa1_rect.collidepoint(event.pos):
                     mostrar_dica = False
@@ -147,10 +167,21 @@ while running:
                 if voltar_rect.collidepoint(event.pos):
                     transicao(screen, clock)
                     tela = 'tela_menu'
+                elif portac_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
+                    perdeud()
+                elif portacasa_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
+                    perdeud()
+
+        #    elif tela == 'fase3':
+
     mouse_pos = pygame.mouse.get_pos()
+
 
 #TELAS
     if tela == 'tela_menu':
+        
         screen.blit(fundo, (0, 0))
         pygame.draw.rect(screen, (226, 81, 0), (0, 0, x, 100))
         pygame.draw.rect(screen, (226, 81, 0), (0, 400, x, 120))
@@ -192,6 +223,8 @@ while running:
 
     elif tela == 'perdeu':
         screen.blit(perdeu, (0, 0))
+        perdeuXvezes = fonte_bemvindo.render(f"Você perdeu {perdeux} vezes", True, 'White')
+        screen.blit(perdeuXvezes, (10,10))
         screen.blit(botao_voltar, botao_voltar_rect)
         screen.blit(botao_fase1, botao_fase1_rect)
         if botao_voltar_rect.collidepoint(mouse_pos) or botao_fase1_rect.collidepoint(mouse_pos):
@@ -202,11 +235,18 @@ while running:
     elif tela == 'fase2':
         screen.blit(fundo_fase2, (0, 0))
         screen.blit(voltar, voltar_rect)
-        print('Fase imcompleta')
-        if voltar_rect.collidepoint(mouse_pos):
+        screen.blit(portaceleiro, portac_rect)
+        screen.blit(portacasa, portacasa_rect)
+        
+        if voltar_rect.collidepoint(mouse_pos) or portac_rect.collidepoint(mouse_pos) or portacasa_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+   # elif tela == 'fase3':
+
+    #elif tela == 'fase4':
+
+   # elif tela == 'fase5':
 
     pygame.display.flip()
     clock.tick(60)
