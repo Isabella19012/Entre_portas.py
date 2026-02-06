@@ -88,6 +88,10 @@ fundo_fase1 = fundo_fase1.convert_alpha()
 fundo_fase2 = pygame.image.load('png/cenario_fase2.png')
 fundo_fase2 = pygame.transform.scale(fundo_fase2, (x, y))
 fundo_fase2 = fundo_fase2.convert_alpha()
+
+fundo_fase3 = pygame.image.load('fase3/fundo_fase3.png')
+fundo_fase3 = pygame.transform.scale(fundo_fase3, (x, y))
+fundo_fase3 = fundo_fase3.convert_alpha
 #desistir
 desistir = subtitulo_fonte.render(f'Menu <-', True, 'White')
 desistir_rect = desistir.get_rect()
@@ -114,6 +118,16 @@ portacasa = pygame.transform.scale(portacasa, (65, 115))
 portacasa_rect = portacasa.get_rect()
 portacasa_rect.topleft = (830, 320)
 
+dentrocasa = pygame.image.load("png/dentrocasa.png")
+dentrocasa = pygame.transform.scale(dentrocasa, (x, y))
+
+portatalvez = pygame.image.load("png/portatalvez.png")
+portatalvez = pygame.transform.scale(portatalvez, (68, 185))
+portatalvez_rect = portatalvez.get_rect()
+portatalvez_rect.topleft = (485, 180)
+#fase3
+fundo_fase3 = pygame.image.load('fase3/fundo_fase3.png')
+fundo_fase3 = pygame.transform.scale(fundo_fase3, (x, y))
 
 while running:
 
@@ -172,9 +186,18 @@ while running:
                     perdeud()
                 elif portacasa_rect.collidepoint(event.pos):
                     transicao(screen, clock)
-                    perdeud()
+                    tela = 'dentrocasa'
+            elif tela == 'dentrocasa': 
+                if portatalvez_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
+                    tela = 'fase3'
 
-        #    elif tela == 'fase3':
+            elif tela == 'fase3':
+                if voltar_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
+                    tela = 'tela_menu'
+
+                
 
     mouse_pos = pygame.mouse.get_pos()
 
@@ -211,12 +234,12 @@ while running:
         screen.blit(dica_gato, dicag_rect.topleft)
         screen.blit(porta_errada1, porta_errada_rect)
         screen.blit(porta_certa1, porta_certa1_rect)
-        screen.blit(desistir, desistir_rect)
+        screen.blit(voltar, voltar_rect)
         if mostrar_dica:
             pygame.draw.rect(screen, (10, 103, 140), (110, 90, 220, 20), border_radius=12)
             screen.blit(dicatxt, dicatxt_rect)
 
-        if porta_certa1_rect.collidepoint(mouse_pos) or porta_errada_rect.collidepoint(mouse_pos) or desistir_rect.collidepoint(mouse_pos) or dicag_rect.collidepoint(mouse_pos):
+        if porta_certa1_rect.collidepoint(mouse_pos) or porta_errada_rect.collidepoint(mouse_pos) or voltar_rect.collidepoint(mouse_pos) or dicag_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
@@ -242,7 +265,25 @@ while running:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
-   # elif tela == 'fase3':
+    elif tela == 'fase3':
+        screen.blit(fundo_fase3, (0,0))
+        screen.blit(voltar, voltar_rect)
+
+        if voltar_rect.collidepoint(event.pos):
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    elif tela == 'dentrocasa':
+        screen.blit(dentrocasa, (0,0))
+        screen.blit(portatalvez, portatalvez_rect.topleft)
+        
+        if portatalvez_rect.collidepoint(event.pos):
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+        
+
 
     #elif tela == 'fase4':
 
