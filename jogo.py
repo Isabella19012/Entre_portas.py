@@ -37,7 +37,6 @@ subtitulo_fonte = pygame.font.Font(None, 23)
 subtitulo = subtitulo_fonte.render(f'As escolham importam', True, 'White')
 surface_texto = fonte_bemvindo.render(f"Entre Portas", True, 'White')
 
-
 voltar = fonte_txt.render(f'<-', True, (192, 79, 21))
 voltar_rect = voltar.get_rect()
 voltar_rect.topleft = (30, 55)
@@ -92,10 +91,7 @@ fundo_fase2 = fundo_fase2.convert_alpha()
 fundo_fase3 = pygame.image.load('fase3/fundo_fase3.png')
 fundo_fase3 = pygame.transform.scale(fundo_fase3, (x, y))
 fundo_fase3 = fundo_fase3.convert_alpha
-#desistir
-desistir = subtitulo_fonte.render(f'Menu <-', True, 'White')
-desistir_rect = desistir.get_rect()
-desistir_rect.topleft = (850,30)
+
 #dicas:
 dica_gato = pygame.image.load('png/gatinha.png')
 dica_gato = pygame.transform.scale(dica_gato, (150,110))
@@ -128,6 +124,34 @@ portatalvez_rect.topleft = (485, 180)
 #fase3
 fundo_fase3 = pygame.image.load('fase3/fundo_fase3.png')
 fundo_fase3 = pygame.transform.scale(fundo_fase3, (x, y))
+
+dicaredef3 = pygame.image.load('fase3/rededica.png')
+dicaredef3 = pygame.transform.scale(dicaredef3, (150, 130))
+dica_rede_rect = dicaredef3.get_rect()
+dica_rede_rect.topleft = (540, 295)
+
+porta3_1 = pygame.image.load('fase3/portacabana3.png')
+porta3_1 = pygame.transform.scale(porta3_1, (52, 65))
+porta3_1_rect = porta3_1.get_rect()
+porta3_1_rect.topleft = (90, 412)
+
+porta3_2 = pygame.image.load('fase3/portacabana3.png')
+porta3_2 = pygame.transform.scale(porta3_2,(52, 65))
+porta3_2_rect = porta3_2.get_rect()
+porta3_2_rect.topleft = (340, 402)
+
+porta3_3 = pygame.image.load('fase3/portacabana3.png')
+porta3_3 = pygame.transform.scale(porta3_3,(52, 65))
+porta3_3_rect = porta3_3.get_rect()
+porta3_3_rect.topleft = (810, 395)
+
+dentrocabana = pygame.image.load('fase3/fase3_2.png')
+dentrocabana = pygame.transform.scale(dentrocabana, (x, y))
+
+dicavela = pygame.image.load('fase3/tocha.png')
+dicavela = pygame.transform.scale(52,65)
+dicavela_rect = dicavela.get_rect()
+dicavela_rect.topleft = (300, 350)
 
 while running:
 
@@ -163,11 +187,6 @@ while running:
                     transicao(screen, clock)
                     tela = 'fase2'
 
-                elif desistir_rect.collidepoint(event.pos):
-                    mostrar_dica = False 
-                    transicao(screen, clock)
-                    tela = 'tela_menu'
-
             elif tela == 'perdeu':
                 if botao_voltar_rect.collidepoint(event.pos):
                     mostrar_dica = False 
@@ -196,11 +215,20 @@ while running:
                 if voltar_rect.collidepoint(event.pos):
                     transicao(screen, clock)
                     tela = 'tela_menu'
-
-                
+                elif porta3_1_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
+                    perdeud()
+                elif porta3_2_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
+                    tela = 'dentrocabana'
+                elif porta3_3_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
+                    perdeud()
+                elif tela == 'dentrocabana':
+                    if dicavela_rect.collidepoint(event.pos):
+                        mostrar_dica3 = True
 
     mouse_pos = pygame.mouse.get_pos()
-
 
 #TELAS
     if tela == 'tela_menu':
@@ -268,21 +296,34 @@ while running:
     elif tela == 'fase3':
         screen.blit(fundo_fase3, (0,0))
         screen.blit(voltar, voltar_rect)
+        screen.blit(dicaredef3, dica_rede_rect)
+        screen.blit(porta3_1, porta3_1_rect)
+        screen.blit(porta3_2, porta3_2_rect)
+        screen.blit(porta3_3, porta3_3_rect)
 
-        if voltar_rect.collidepoint(event.pos):
+        if voltar_rect.collidepoint(mouse_pos) or dica_rede_rect.collidepoint(mouse_pos) or porta3_1_rect.collidepoint(mouse_pos) or porta3_2_rect.collidepoint(mouse_pos) or porta3_3_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
     elif tela == 'dentrocasa':
         screen.blit(dentrocasa, (0,0))
+        screen.blit(voltar, voltar_rect)
         screen.blit(portatalvez, portatalvez_rect.topleft)
         
-        if portatalvez_rect.collidepoint(event.pos):
+        if portatalvez_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
-        
+    elif tela == 'dentrocabana':
+        screen.blit(dentrocabana, (0, 0))
+        screen.blit(voltar, voltar_rect)
+        screen.blit(dicavela, dicavela_rect)
+
+        if voltar_rect.collidepoint(mouse_pos):
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
 
     #elif tela == 'fase4':
