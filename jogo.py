@@ -27,7 +27,7 @@ x, y = 1000, 500
 screen = pygame.display.set_mode((x, y)) # configura janela do jogo
 clock = pygame.time.Clock()
 running = True
-tela='tela_menu'
+tela='fase2'
 perdeux = 0
 fonte=pygame.font.Font(None, 80)
 fonte_bemvindo = pygame.font.Font(None, 50)
@@ -37,7 +37,7 @@ subtitulo_fonte = pygame.font.Font(None, 23)
 subtitulo = subtitulo_fonte.render(f'As escolham importam', True, 'White')
 surface_texto = fonte_bemvindo.render(f"Entre Portas", True, 'White')
 
-voltar = fonte_txt.render(f'<-', True, (192, 79, 21))
+voltar = fonte_txt.render(f'<-', True, (255, 255, 255))
 voltar_rect = voltar.get_rect()
 voltar_rect.topleft = (30, 55)
 
@@ -121,6 +121,20 @@ portatalvez = pygame.image.load("png/portatalvez.png")
 portatalvez = pygame.transform.scale(portatalvez, (68, 185))
 portatalvez_rect = portatalvez.get_rect()
 portatalvez_rect.topleft = (485, 180)
+
+dicasino = pygame.image.load("png/sino.png")
+dicasino = pygame.transform.scale(dicasino, (25, 25))
+dicasino_rect = dicasino.get_rect()
+dicasino_rect.topleft = (364, 245)
+
+mostrar_dica = False
+dicatxt = subtitulo_fonte.render("Quando tudo termina, pra onde você quer ir?", True, (255, 255, 255))
+dicatxt_rect = dicatxt.get_rect(center=(220, 100))
+
+mostrar_dica2 = False
+dicatxt2 = subtitulo_fonte.render("Quando tudo termina, pra onde você mais quer ir?",True,(255, 255, 255))
+dicatxt2_rect = dicatxt2.get_rect(center=(500, 50))
+
 #fase3
 fundo_fase3 = pygame.image.load('fase3/fundo_fase3.png')
 fundo_fase3 = pygame.transform.scale(fundo_fase3, (x, y))
@@ -149,9 +163,56 @@ dentrocabana = pygame.image.load('fase3/fase3_2.png')
 dentrocabana = pygame.transform.scale(dentrocabana, (x, y))
 
 dicavela = pygame.image.load('fase3/tocha.png')
-dicavela = pygame.transform.scale(52,65)
+dicavela = pygame.transform.scale(dicavela,(40,110))
 dicavela_rect = dicavela.get_rect()
-dicavela_rect.topleft = (300, 350)
+dicavela_rect.topleft = (285, 175)
+
+dicavela2 = pygame.image.load('fase3/tocha.png')
+dicavela2 = pygame.transform.scale(dicavela2,(40,110))
+dicavela2_rect = dicavela2.get_rect()
+dicavela2_rect.topleft = (675, 180)
+
+portaverde = pygame.image.load('fase3/portaverde.png')
+portaverde = pygame.transform.scale(portaverde,(107,165))
+portaverde_rect = portaverde.get_rect()
+portaverde_rect.topleft = (535, 235)
+
+prafora = pygame.image.load('fase3/pra fora.png')
+prafora = pygame.transform.scale(prafora,( 100,165))
+prafora_rect = prafora.get_rect()
+prafora_rect.topleft = (377, 235)
+
+mostrar_dica3 = False
+dicatxt3 = subtitulo_fonte.render("O que tartaruga, plantas, algas e abacate tem em comum?",True,(255, 255, 255))
+dicatxt3_rect = dicatxt3.get_rect(center=(500, 80))
+
+mostrar_dica3_rede = False
+dicatxt3_rede = subtitulo_fonte.render("O que tartaruga, plantas, algas e abacate tem em comum?",True,(255, 255, 255))
+dicatxt3_rede_rect = dicatxt3.get_rect(center=(500, 100))
+
+
+
+#fase4
+fundo_fase4 = pygame.image.load('fase4/fundo_fase4.png')
+fundo_fase4 = pygame.transform.scale(fundo_fase4, (x,y))
+
+c1, c2 = 400, 700
+
+carro1 = pygame.image.load('fase4/carroroxo.png')
+carro1 = pygame.transform.scale(carro1, (100,100))
+carro1_rect = carro1.get_rect()
+carro1_rect.topleft = (c1, 380)
+
+carro2 = pygame.image.load('fase4/carroverde.png')
+carro2 = pygame.transform.scale(carro2, (100,100))
+carro2_rect = carro2.get_rect()
+carro2_rect.topleft = (c2,400)
+
+
+passeio = pygame.image.load('fase4/passeio.png')
+passeio = pygame.transform.scale(passeio,( 100,165))
+passeio_rect = passeio.get_rect()
+passeio_rect.topleft = (600, 235)
 
 while running:
 
@@ -206,6 +267,8 @@ while running:
                 elif portacasa_rect.collidepoint(event.pos):
                     transicao(screen, clock)
                     tela = 'dentrocasa'
+                elif dicasino_rect.collidepoint(event.pos):
+                    mostrar_dica2 = not mostrar_dica2
             elif tela == 'dentrocasa': 
                 if portatalvez_rect.collidepoint(event.pos):
                     transicao(screen, clock)
@@ -224,9 +287,21 @@ while running:
                 elif porta3_3_rect.collidepoint(event.pos):
                     transicao(screen, clock)
                     perdeud()
-                elif tela == 'dentrocabana':
-                    if dicavela_rect.collidepoint(event.pos):
-                        mostrar_dica3 = True
+                elif dica_rede_rect.collidepoint(event.pos):
+                    mostrar_dica3 = not mostrar_dica3
+            elif tela == 'dentrocabana':
+                if dicavela_rect.collidepoint(event.pos) or dicavela2_rect.collidepoint(event.pos):
+                    mostrar_dica3 = not mostrar_dica3
+                elif voltar_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
+                    tela = 'tela_menu'
+                elif prafora_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
+                    perdeud()
+                elif portaverde_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
+                    tela = 'fase4'
+
 
     mouse_pos = pygame.mouse.get_pos()
 
@@ -264,7 +339,7 @@ while running:
         screen.blit(porta_certa1, porta_certa1_rect)
         screen.blit(voltar, voltar_rect)
         if mostrar_dica:
-            pygame.draw.rect(screen, (10, 103, 140), (110, 90, 220, 20), border_radius=12)
+            pygame.draw.rect(screen, (255, 255, 255), (50, 80, 345, 40), 3, 12)
             screen.blit(dicatxt, dicatxt_rect)
 
         if porta_certa1_rect.collidepoint(mouse_pos) or porta_errada_rect.collidepoint(mouse_pos) or voltar_rect.collidepoint(mouse_pos) or dicag_rect.collidepoint(mouse_pos):
@@ -288,8 +363,11 @@ while running:
         screen.blit(voltar, voltar_rect)
         screen.blit(portaceleiro, portac_rect)
         screen.blit(portacasa, portacasa_rect)
-        
-        if voltar_rect.collidepoint(mouse_pos) or portac_rect.collidepoint(mouse_pos) or portacasa_rect.collidepoint(mouse_pos):
+        screen.blit(dicasino, dicasino_rect)
+        if mostrar_dica2:
+            pygame.draw.rect(screen, (255, 255, 255), (300, 30, 400, 40), 3, 12)
+            screen.blit(dicatxt2, dicatxt2_rect)
+        if voltar_rect.collidepoint(mouse_pos) or dicasino_rect.collidepoint(mouse_pos) or portac_rect.collidepoint(mouse_pos) or portacasa_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
@@ -300,7 +378,9 @@ while running:
         screen.blit(porta3_1, porta3_1_rect)
         screen.blit(porta3_2, porta3_2_rect)
         screen.blit(porta3_3, porta3_3_rect)
-
+        if mostrar_dica3:
+            pygame.draw.rect(screen, (255, 255, 255), (280, 85, 450, 30), 3, 12)
+            screen.blit(dicatxt3_rede, dicatxt3_rede_rect)
         if voltar_rect.collidepoint(mouse_pos) or dica_rede_rect.collidepoint(mouse_pos) or porta3_1_rect.collidepoint(mouse_pos) or porta3_2_rect.collidepoint(mouse_pos) or porta3_3_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
@@ -310,7 +390,6 @@ while running:
         screen.blit(dentrocasa, (0,0))
         screen.blit(voltar, voltar_rect)
         screen.blit(portatalvez, portatalvez_rect.topleft)
-        
         if portatalvez_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
@@ -319,14 +398,24 @@ while running:
         screen.blit(dentrocabana, (0, 0))
         screen.blit(voltar, voltar_rect)
         screen.blit(dicavela, dicavela_rect)
+        screen.blit(dicavela2, dicavela2_rect)
+        screen.blit(portaverde, portaverde_rect)
+        screen.blit(prafora, prafora_rect)
+        if mostrar_dica3:
+            pygame.draw.rect(screen, (255, 255, 255), (250, 60, 500, 50), 3, 12)
+            screen.blit(dicatxt3, dicatxt3_rect)
 
-        if voltar_rect.collidepoint(mouse_pos):
+        if voltar_rect.collidepoint(mouse_pos) or prafora_rect.collidepoint(mouse_pos) or dicavela_rect.collidepoint(mouse_pos) or portaverde_rect.collidepoint(mouse_pos) or dicavela2_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
+    elif tela == 'fase4':
+        screen.blit(fundo_fase4, (0,0))
+        screen.blit(passeio, passeio_rect)
+        screen.blit(carro1, carro1_rect)
+        screen.blit(carro2, carro2_rect)
 
-    #elif tela == 'fase4':
 
    # elif tela == 'fase5':
 
