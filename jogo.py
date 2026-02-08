@@ -37,7 +37,7 @@ subtitulo_fonte = pygame.font.Font(None, 23)
 subtitulo = subtitulo_fonte.render(f'As escolham importam', True, 'White')
 surface_texto = fonte_bemvindo.render(f"Entre Portas", True, 'White')
 
-voltar = fonte_txt.render(f'<-', True, (255, 255, 255))
+voltar = fonte_txt.render(f'<-', True, 'black')
 voltar_rect = voltar.get_rect()
 voltar_rect.topleft = (30, 55)
 
