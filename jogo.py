@@ -27,7 +27,7 @@ x, y = 1000, 500
 screen = pygame.display.set_mode((x, y)) # configura janela do jogo
 clock = pygame.time.Clock()
 running = True
-tela='fase2'
+tela='tela_menu'
 perdeux = 0
 fonte=pygame.font.Font(None, 80)
 fonte_bemvindo = pygame.font.Font(None, 50)
@@ -99,8 +99,10 @@ dicag_rect = dica_gato.get_rect()
 dicag_rect.topleft = (557, 110)
 
 mostrar_dica = False
-dicatxt = subtitulo_fonte.render("O que mais tem no céu?", True, (11, 118, 160))
-dicatxt_rect = dicatxt.get_rect(center=(220, 100))
+dicatxt = subtitulo_fonte.render("O que mais tem no céu?", True,(255,255,255))
+dicatxt_rect = dicatxt.get_rect()
+dicatxt_rect.topleft = (120, 90)
+
 #fase 2
 #colisão/dica
 
@@ -126,10 +128,6 @@ dicasino = pygame.image.load("png/sino.png")
 dicasino = pygame.transform.scale(dicasino, (25, 25))
 dicasino_rect = dicasino.get_rect()
 dicasino_rect.topleft = (364, 245)
-
-mostrar_dica = False
-dicatxt = subtitulo_fonte.render("Quando tudo termina, pra onde você quer ir?", True, (255, 255, 255))
-dicatxt_rect = dicatxt.get_rect(center=(220, 100))
 
 mostrar_dica2 = False
 dicatxt2 = subtitulo_fonte.render("Quando tudo termina, pra onde você mais quer ir?",True,(255, 255, 255))
@@ -187,10 +185,8 @@ dicatxt3 = subtitulo_fonte.render("O que tartaruga, plantas, algas e abacate tem
 dicatxt3_rect = dicatxt3.get_rect(center=(500, 80))
 
 mostrar_dica3_rede = False
-dicatxt3_rede = subtitulo_fonte.render("O que tartaruga, plantas, algas e abacate tem em comum?",True,(255, 255, 255))
-dicatxt3_rede_rect = dicatxt3.get_rect(center=(500, 100))
-
-
+dicatxt3_rede = subtitulo_fonte.render("Embaixo da pequena nuvem",True,(255, 255, 255))
+dicatxt3_rede_rect = dicatxt3_rede.get_rect(center=(500, 100))
 
 #fase4
 fundo_fase4 = pygame.image.load('fase4/fundo_fase4.png')
@@ -199,27 +195,76 @@ fundo_fase4 = pygame.transform.scale(fundo_fase4, (x,y))
 c1, c2 = 400, 700
 
 carro1 = pygame.image.load('fase4/carroroxo.png')
-carro1 = pygame.transform.scale(carro1, (100,100))
-carro1_rect = carro1.get_rect()
-carro1_rect.topleft = (c1, 380)
+carro1 = pygame.transform.scale(carro1, (200,100))
 
 carro2 = pygame.image.load('fase4/carroverde.png')
-carro2 = pygame.transform.scale(carro2, (100,100))
-carro2_rect = carro2.get_rect()
-carro2_rect.topleft = (c2,400)
+carro2 = pygame.transform.scale(carro2, (200,100))
+g1, g1_2 = 80, 40
+gatinhodormindo = pygame.image.load('fase4/gatodormindo.png')
+gatinhodormindo = pygame.transform.scale(gatinhodormindo, (80,50))
+gatinhodormindo_rect = gatinhodormindo.get_rect()
+gatinhodormindo_rect.topleft = (g1,g1_2 )
 
+portapredio = pygame.image.load('fase4/portapredio.png')
+portapredio = pygame.transform.scale(portapredio, (115, 70))
+portapredio_rect = portapredio.get_rect(topleft = (100, 325))
 
-passeio = pygame.image.load('fase4/passeio.png')
-passeio = pygame.transform.scale(passeio,( 100,165))
-passeio_rect = passeio.get_rect()
-passeio_rect.topleft = (600, 235)
+portapredio2 = pygame.image.load('fase4/portapredio.png')
+portapredio2 = pygame.transform.scale(portapredio2, (115, 70))
+portapredio2_rect = portapredio2.get_rect(topleft = (402, 325))
+
+portaverde4 = pygame.image.load('fase3/portaverde.png')
+portaverde4 = pygame.transform.scale(portaverde4, (90, 90))
+portaverde4_rect = portaverde4.get_rect(topleft = (803, 300))
+
+dicatxtgato = subtitulo_fonte.render("Onde o gato estava?",True,(255, 255, 255))
+dicatxtgato_rect = dicatxt3_rede.get_rect(center=(525, 60))
+
+ganhou_fundo = pygame.image.load('png/ganhou.png')
+ganhou_fundo = pygame.transform.scale(ganhou_fundo, (x,y))
+
+perdasbotao = pygame.image.load('png/n de perdas.png')
+perdasbotao_rect =perdasbotao.get_rect(topleft = (250, 170))
+
+recomecarbotao = pygame.image.load('png/recomeçar.png')
+recomecarbotao_rect =recomecarbotao.get_rect(topleft = (250, 390))
+
+sairbotao = pygame.image.load('png/sair.png')
+sairbotao_rect =sairbotao.get_rect(topleft = (250, 280))
+
+fundo_fase5 = pygame.image.load('fase5/fundo5.png')
+fundo_fase5 = pygame. transform.scale(fundo_fase5, (x,y))
+fundo_fase5 = fundo_fase5.convert_alpha()
+p, p2 = 120, 180
+h = 235
+porta1 = pygame.image.load('fase5/1.png')
+porta1 = pygame.transform.scale(porta1, (p,p2))
+porta1_rect = porta1.get_rect(topleft = (70, h))
+
+porta2 = pygame.image.load('fase5/2.png')
+porta2 = pygame.transform.scale(porta2, (p,p2))
+porta2_rect = porta2.get_rect(topleft = (250, h))
+
+porta3 = pygame.image.load('fase5/3.png')
+porta3 = pygame.transform.scale(porta3, (p,p2))
+porta3_rect = porta3.get_rect(topleft = (450, h))
+
+porta4 = pygame.image.load('fase5/4.png')
+porta4 = pygame.transform.scale(porta4, (p,p2))
+porta4_rect = porta4.get_rect(topleft = (650, h))
+
+porta5 = pygame.image.load('fase5/5.png')
+porta5 = pygame.transform.scale(porta5, (p,p2))
+porta5_rect = porta5.get_rect(topleft = (845, h))
 
 while running:
+
+    mouse_pos = pygame.mouse.get_pos()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
+    
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if tela == 'tela_menu':
                 if texto2_rect.collidepoint(event.pos):
@@ -247,10 +292,13 @@ while running:
                     mostrar_dica = False
                     transicao(screen, clock)
                     tela = 'fase2'
+                elif voltar_rect.collidepoint(event.pos):
+                    transicao(screen, clock)
+                    mostrar_dica = False 
+                    tela = 'tela_menu'
 
             elif tela == 'perdeu':
                 if botao_voltar_rect.collidepoint(event.pos):
-                    mostrar_dica = False 
                     transicao(screen, clock)
                     tela = 'tela_menu'
                 elif botao_fase1_rect.collidepoint(event.pos):
@@ -259,51 +307,113 @@ while running:
 
             elif tela == 'fase2':
                 if voltar_rect.collidepoint(event.pos):
+                    mostrar_dica2 = False
                     transicao(screen, clock)
                     tela = 'tela_menu'
                 elif portac_rect.collidepoint(event.pos):
+                    mostrar_dica2 = False
                     transicao(screen, clock)
                     perdeud()
                 elif portacasa_rect.collidepoint(event.pos):
+                    mostrar_dica2 = False
                     transicao(screen, clock)
                     tela = 'dentrocasa'
                 elif dicasino_rect.collidepoint(event.pos):
                     mostrar_dica2 = not mostrar_dica2
             elif tela == 'dentrocasa': 
                 if portatalvez_rect.collidepoint(event.pos):
+                    mostrar_dica2 = False
                     transicao(screen, clock)
                     tela = 'fase3'
+                elif voltar_rect.collidepoint(event.pos):
+                    tela = 'tela_menu'
 
             elif tela == 'fase3':
                 if voltar_rect.collidepoint(event.pos):
+                    mostrar_dica3_rede = False
                     transicao(screen, clock)
                     tela = 'tela_menu'
                 elif porta3_1_rect.collidepoint(event.pos):
+                    mostrar_dica3_rede = False
                     transicao(screen, clock)
                     perdeud()
                 elif porta3_2_rect.collidepoint(event.pos):
+                    mostrar_dica3_rede = False
                     transicao(screen, clock)
                     tela = 'dentrocabana'
                 elif porta3_3_rect.collidepoint(event.pos):
+                    mostrar_dica3_rede = False
                     transicao(screen, clock)
                     perdeud()
                 elif dica_rede_rect.collidepoint(event.pos):
-                    mostrar_dica3 = not mostrar_dica3
+                    mostrar_dica3_rede = not mostrar_dica3_rede
             elif tela == 'dentrocabana':
                 if dicavela_rect.collidepoint(event.pos) or dicavela2_rect.collidepoint(event.pos):
                     mostrar_dica3 = not mostrar_dica3
                 elif voltar_rect.collidepoint(event.pos):
+                    mostrar_dica3 = False
                     transicao(screen, clock)
                     tela = 'tela_menu'
                 elif prafora_rect.collidepoint(event.pos):
+                    mostrar_dica3 = False
                     transicao(screen, clock)
                     perdeud()
                 elif portaverde_rect.collidepoint(event.pos):
+                    mostrar_dica3 = False
                     transicao(screen, clock)
                     tela = 'fase4'
+            elif tela == 'fase4':
+                if gatinhodormindo_rect.collidepoint(event.pos):
+                    gatinhodormindo = pygame.image.load('fase4/gato acordado.png')
+                    gatinhodormindo = pygame.transform.scale(gatinhodormindo, (80,50))
+                    gatinhodormindo_rect = gatinhodormindo.get_rect()
+                    gatinhodormindo_rect.topleft = (g1,g1_2 )
+                    g1=g1+40
+                    print(g1)
+                    print(g1_2)
+                    if g1 == 520:
+                        g1_2 = 60
+                    elif g1_2 == 60:
+                        g1_2 = 70
+                    elif g1 == 720:
+                        g1_2 = 130
+                    elif g1_2 == 130:
+                        g1_2 = 175
+                elif voltar_rect.collidepoint(event.pos):
+                    mostrar_dica_gato4 = False
+                    transicao(screen, clock)
+                    tela = 'tela_menu'
+                elif  portaverde4_rect.collidepoint(event.pos):
+                    mostrar_dica_gato4 = False
+                    transicao(screen, clock)
+                    perdeud()
+                elif portapredio_rect.collidepoint(event.pos):
+                    mostrar_dica_gato4 = False
+                    transicao(screen,clock)
+                    tela ='fase5'
+                elif portapredio2_rect.collidepoint(event.pos):
+                    mostrar_dica_gato4 = False
+                    transicao(screen, clock)
+                    perdeud()
 
-
-    mouse_pos = pygame.mouse.get_pos()
+            elif tela == 'ganhou':
+                transicao(screen,clock)
+                if sairbotao_rect.collidepoint(event.pos):
+                    running = False
+                elif recomecarbotao_rect.collidepoint(event.pos):
+                    tela ='tela_menu'
+            elif tela == 'fase5':
+                transicao(screen, clock)
+                if porta1_rect.collidepoint(event.pos):
+                    perdeud()
+                elif porta2_rect.collidepoint(event.pos):
+                    perdeud()
+                elif porta3_rect.collidepoint(event.pos):
+                    perdeud()
+                elif porta4_rect.collidepoint(event.pos):
+                    tela = 'ganhou'
+                elif porta5_rect.collidepoint(event.pos):
+                    perdeud()
 
 #TELAS
     if tela == 'tela_menu':
@@ -339,7 +449,7 @@ while running:
         screen.blit(porta_certa1, porta_certa1_rect)
         screen.blit(voltar, voltar_rect)
         if mostrar_dica:
-            pygame.draw.rect(screen, (255, 255, 255), (50, 80, 345, 40), 3, 12)
+            pygame.draw.rect(screen, (255, 255, 255), (90, 80, 250, 40), 3, 12)
             screen.blit(dicatxt, dicatxt_rect)
 
         if porta_certa1_rect.collidepoint(mouse_pos) or porta_errada_rect.collidepoint(mouse_pos) or voltar_rect.collidepoint(mouse_pos) or dicag_rect.collidepoint(mouse_pos):
@@ -349,8 +459,6 @@ while running:
 
     elif tela == 'perdeu':
         screen.blit(perdeu, (0, 0))
-        perdeuXvezes = fonte_bemvindo.render(f"Você perdeu {perdeux} vezes", True, 'White')
-        screen.blit(perdeuXvezes, (10,10))
         screen.blit(botao_voltar, botao_voltar_rect)
         screen.blit(botao_fase1, botao_fase1_rect)
         if botao_voltar_rect.collidepoint(mouse_pos) or botao_fase1_rect.collidepoint(mouse_pos):
@@ -378,8 +486,8 @@ while running:
         screen.blit(porta3_1, porta3_1_rect)
         screen.blit(porta3_2, porta3_2_rect)
         screen.blit(porta3_3, porta3_3_rect)
-        if mostrar_dica3:
-            pygame.draw.rect(screen, (255, 255, 255), (280, 85, 450, 30), 3, 12)
+        if mostrar_dica3_rede:
+            pygame.draw.rect(screen, (255, 255, 255), (350, 85, 300, 30), 3, 12)
             screen.blit(dicatxt3_rede, dicatxt3_rede_rect)
         if voltar_rect.collidepoint(mouse_pos) or dica_rede_rect.collidepoint(mouse_pos) or porta3_1_rect.collidepoint(mouse_pos) or porta3_2_rect.collidepoint(mouse_pos) or porta3_3_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
@@ -389,7 +497,7 @@ while running:
     elif tela == 'dentrocasa':
         screen.blit(dentrocasa, (0,0))
         screen.blit(voltar, voltar_rect)
-        screen.blit(portatalvez, portatalvez_rect.topleft)
+        screen.blit(portatalvez, portatalvez_rect)
         if portatalvez_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
@@ -402,7 +510,7 @@ while running:
         screen.blit(portaverde, portaverde_rect)
         screen.blit(prafora, prafora_rect)
         if mostrar_dica3:
-            pygame.draw.rect(screen, (255, 255, 255), (250, 60, 500, 50), 3, 12)
+            pygame.draw.rect(screen, (255, 255, 255), (280, 60, 450, 40), 3, 12)
             screen.blit(dicatxt3, dicatxt3_rect)
 
         if voltar_rect.collidepoint(mouse_pos) or prafora_rect.collidepoint(mouse_pos) or dicavela_rect.collidepoint(mouse_pos) or portaverde_rect.collidepoint(mouse_pos) or dicavela2_rect.collidepoint(mouse_pos):
@@ -411,13 +519,47 @@ while running:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
     elif tela == 'fase4':
+        c1 = c1+10
+        c2 = c2 -10
         screen.blit(fundo_fase4, (0,0))
-        screen.blit(passeio, passeio_rect)
-        screen.blit(carro1, carro1_rect)
-        screen.blit(carro2, carro2_rect)
+        screen.blit(voltar, voltar_rect)
+        screen.blit(gatinhodormindo, gatinhodormindo_rect)
+        screen.blit(carro1, (c1, 380))
+        screen.blit(carro2, (c2, 400))
+        screen.blit(portaverde4, portaverde4_rect)
+        screen.blit(portapredio, portapredio_rect)
+        screen.blit(portapredio2, portapredio2_rect)
+        if g1>=1040:
+            pygame.draw.rect(screen, (255, 255, 255), (400, 40, 190, 40), 3, 12)
+            screen.blit(dicatxtgato, dicatxtgato_rect)
+        if voltar_rect.collidepoint(mouse_pos) or portaverde4_rect.collidepoint(mouse_pos) or portapredio2_rect.collidepoint(mouse_pos)or portapredio_rect.collidepoint(mouse_pos) or  gatinhodormindo_rect.collidepoint(mouse_pos):
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+    elif tela == 'fase5':
+        screen.blit(fundo_fase5, (0,0))
+        screen.blit(porta1, porta1_rect)
+        screen.blit(porta2, porta2_rect)
+        screen.blit(porta3, porta3_rect)
+        screen.blit(porta4, porta4_rect)
+        screen.blit(porta5, porta5_rect)
 
+        if porta1_rect.collidepoint(mouse_pos) or porta2_rect.collidepoint(mouse_pos) or porta3_rect.collidepoint(mouse_pos) or porta4_rect.collidepoint(mouse_pos) or porta5_rect.collidepoint(mouse_pos):
+             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)           
+    elif tela == 'ganhou':
+        perdeuXvezes = fonte_bemvindo.render(f'{perdeux}', True, 'Yellow')
+        screen.blit(ganhou_fundo, (0,0))
+        screen.blit(perdasbotao, perdasbotao_rect)
+        screen.blit(sairbotao, sairbotao_rect)
+        screen.blit(recomecarbotao, recomecarbotao_rect)
+        screen.blit(perdeuXvezes, (600, 210))
+        if recomecarbotao_rect.collidepoint(mouse_pos) or sairbotao_rect.collidepoint(mouse_pos) or perdasbotao_rect.collidepoint(mouse_pos):
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)           
 
-   # elif tela == 'fase5':
 
     pygame.display.flip()
     clock.tick(60)
