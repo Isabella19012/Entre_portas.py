@@ -326,6 +326,7 @@ while running:
                     transicao(screen, clock)
                     tela = 'fase3'
                 elif voltar_rect.collidepoint(event.pos):
+                    transicao(screen,clock)
                     tela = 'tela_menu'
 
             elif tela == 'fase3':
@@ -498,7 +499,7 @@ while running:
         screen.blit(dentrocasa, (0,0))
         screen.blit(voltar, voltar_rect)
         screen.blit(portatalvez, portatalvez_rect)
-        if portatalvez_rect.collidepoint(mouse_pos):
+        if portatalvez_rect.collidepoint(mouse_pos) or voltar_rect.collidepoint(mouse_pos):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
